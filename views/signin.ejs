@@ -6,13 +6,17 @@
     <%- include('./essentials/cssCDN.ejs') %>
     <title>Document</title>
   </head>
+  <!-- <script type="text/javascript">
+    window.onbeforeunload = function () {
+      return null;
+    };
+  </script> -->
   <body>
     <%- include('./essentials/navbar.ejs') %>
     <div class="container">
       <div class="row">
         <div class="col-md-6 mx-auto">
           <form action="http://localhost:5000/user/signin" method="POST">
-           
             <div class="mb-3 mt-4">
               <label for="exampleInputEmail1" class="form-label"
                 >Email address</label

@@ -1,14 +1,17 @@
 const express=require('express');
 const ejs=require('ejs');
 const mongoose=require('mongoose');
+const {checkToken}=require('./middleware/authentication')
 
-const userRouter=require('./routes/User')
+const userRouter=require('./routes/User');
+const cookieParser = require('cookie-parser');
 
 const app=express();
 
 
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true}));
+app.use(cookieParser())
 app.set('view engine','ejs');
 app.set('views',__dirname+'/views');
 
@@ -16,8 +19,10 @@ app.use('/user',userRouter);
 
 
 
-app.get('/',(req,res)=>{
-    return res.render('home');
+app.get('/', checkToken, (req,res)=>{
+    return res.render('home',{
+        name:req.customdata,
+    });
 })
 
 
