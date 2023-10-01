@@ -1,58 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/your-css-file.css" />
+    <!-- Link to your CSS file -->
     <%- include('./essentials/cssCDN.ejs') %>
     <title>Document</title>
-    
-</head>
-<body>
+    <style>
+      /* your-css-file.css */
+
+      /* Style the container */
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* Style the cover image to be responsive */
+      .img-fluid {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Style the author information */
+      .author-info {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+      }
+
+      /* Style the profile image */
+      .profile-img {
+        border-radius: 50%;
+        margin-left: 10px;
+      }
+
+      /* Style comments and comment form */
+      .comments {
+        margin-top: 20px;
+      }
+
+      .comment-form {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
     <%- include('./essentials/navbar.ejs') %>
-    <h2><%= locals.blog.title %> </h2>
-    <p> <%= locals.blog.body %></p>
-    <img src="<%= locals.blog.coverImage %>" height="200" width="200">
-    <div>
-        <%= locals.blog.createdBy.name %>
-        <img src="<%= locals.blog.createdBy.profileImage %>" height="100" width="100">
-    </div>
-
-
-    <div>
-        <h2> Comments <%= locals.comments.length %></h2>
-        <% locals.comments.forEach(element => { %>
-            <li><%= element.content %></li>
-        <% }) %>
-    </div>
-
-    <% if (locals.name) { %>
-        <div class="container">
-            <div class="row">
-              <div class="col-md-6 mx-auto">
-                <form action="http://localhost:5000/blog/comment/<%= locals.blog._id %>" method="POST">
-                  <div class="mb-3 mt-4">
-                    <label for="exampleInputEmail1" class="form-label"
-                      >Comments</label
-                    >
-                    <!-- <div><%= locals.blog._id %></div> -->
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                      name="content"
-                    />
-                    
+    <div class="container">
+      <h2><%= locals.blog.title %></h2>
+      <img
+        src="<%= locals.blog.coverImage %>"
+        alt="Cover Image"
+        class="img-fluid"
+        width="400"
+      />
+      <p style="text-align: justify;"><%= locals.blog.body %></p>
       
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-              </div>
-            </div>
+      <div class="author-info">
+        <img
+          src="<%= locals.blog.createdBy.profileImage %>"
+          alt="Profile Image"
+          class="profile-img"
+          height="40"
+          width="40"
+          class="pe-3"
+          style="margin-right:10px;"
+          
+        />
+        <span style="font-weight:bold;">Author: <%= locals.blog.createdBy.name %></span>
+
+      </div>
+
+      <!-- Section to view comments -->
+      <div class="comments">
+        <h2>Comments <%= locals.comments.length %></h2>
+        <ul style="list-style: none; margin-bottom:10px">
+          <% locals.comments.forEach(element => { %>
+          <li style="margin-bottom: 10px;"><img src="<%= locals.blog.createdBy.profileImage %>" height="30" width="30"> <span style="font-weight:600"><%= element.createdBy.name %></span> <br> <%= element.content %></li>
+          <% }) %>
+        </ul>
+      </div>
+
+      <!-- Section to add comments -->
+      <% if (locals.name) { %>
+      <div class="comment-form">
+        <form
+          action="http://localhost:5000/blog/comment/<%= locals.blog._id %>"
+          method="POST"
+        >
+          <div class="mb-3 mt-4">
+            <label for="content" class="form-label">Comments</label>
+            <input
+              type="text"
+              class="form-control"
+              id="content"
+              name="content"
+            />
           </div>
-    <% } %>
-
-
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <% } %>
+    </div>
 
     <%- include('./essentials/scriptsCDN.ejs') %>
-</body>
+  </body>
 </html>

@@ -13,7 +13,7 @@ const commentController=async (req,res)=>{
     console.log(comment);
 
     // res.redirect(`/blogs/${req.params.blogId}`);
-    res.redirect('/')
+    res.redirect(`/blog/${req.params.blogId}`)
 };
 
 
