@@ -8,9 +8,9 @@ const createBlog= async (req,res)=>{
 };
 
 const postCreateBlog = async (req,res)=>{
-    console.log("Working data",req.body);
+    // console.log("Working data",req.body);
     // console.log(req.file);
-    console.log(req.customdata);
+    // console.log(req.customdata);
     const {body,title,coverImage}=req.body;
     const createdBlog=await blogModel.create({
         body,
@@ -18,7 +18,9 @@ const postCreateBlog = async (req,res)=>{
         createdBy:req.customdata.name._id,
         coverImage
     });
-    console.log(createdBlog);
+    // console.log(createdBlog);
+    
+    // console.log(createdBlog);
     res.redirect('/');
 }
 

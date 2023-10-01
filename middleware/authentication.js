@@ -14,7 +14,8 @@ const checkToken=async (req,res,next)=>{
     }
 
     req.customdata={name:dataFromDB};
-    // console.log(req.customdata);
+
+    // console.log("middleware data",req.customdata);
     next();
 
 }

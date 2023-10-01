@@ -10,8 +10,8 @@ const signin = async (req, res) => {
 };
 
 const postSignup = async (req, res) => {
-  console.log("ye vala");
-  console.log(req.body);
+  // console.log("ye vala");
+  // console.log(req.body);
   const { name, password, email } = req.body;
   const user = await models.User.create({
     name,
@@ -22,7 +22,7 @@ const postSignup = async (req, res) => {
 };
 
 const postSignin = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { email, password } = req.body;
   const isMatched = await models.User.findOne({ email });
   console.log(isMatched);
@@ -36,7 +36,7 @@ const postSignin = async (req, res) => {
     });
   const token = generateToken(isMatched);
   res.cookie("userid", token);
-  console.log("Token", token);
+  // console.log("Token", token);
   return res.redirect("/");
 };
 

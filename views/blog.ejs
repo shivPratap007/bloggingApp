@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./essentials/cssCDN.ejs') %>
+    <title>Document</title>
+    
+</head>
+<body>
+    <%- include('./essentials/navbar.ejs') %>
+    <h2><%= locals.blog.title %> </h2>
+    <p> <%= locals.blog.body %></p>
+    <img src="<%= locals.blog.coverImage %>" height="200" width="200">
+    <div>
+        <%= locals.blog.createdBy.name %>
+        <img src="<%= locals.blog.createdBy.profileImage %>" height="100" width="100">
+    </div>
+
+
+    <div>
+        <h2> Comments <%= locals.comments.length %></h2>
+        <% locals.comments.forEach(element => { %>
+            <li><%= element.content %></li>
+        <% }) %>
+    </div>
+
+    <% if (locals.name) { %>
+        <div class="container">
+            <div class="row">
+              <div class="col-md-6 mx-auto">
+                <form action="http://localhost:5000/blog/comment/<%= locals.blog._id %>" method="POST">
+                  <div class="mb-3 mt-4">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Comments</label
+                    >
+                    <!-- <div><%= locals.blog._id %></div> -->
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="exampleInputEmail1"
+                      aria-describedby="emailHelp"
+                      name="content"
+                    />
+                    
+      
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+    <% } %>
+
+
+
+    <%- include('./essentials/scriptsCDN.ejs') %>
+</body>
+</html>
